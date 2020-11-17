@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
+/*
+ https://www.examenultau.ro/blog/cel-mai-mare-divizor-comun/
+https://www.geeksforgeeks.org/program-to-find-lcm-of-two-numbers/
+pas cu pas pentru a afla lcm cmmmc
+ */
+
 namespace Functions5
 {
     class Program
