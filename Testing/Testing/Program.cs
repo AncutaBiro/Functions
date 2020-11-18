@@ -4,17 +4,33 @@ namespace Testing
 {
     class Program
     {
+
         static void Main(string[] args)
         {
-            Console.Write(GetCountry("Ion"));
+            string text = "This is test phrase.";
+                Console.WriteLine(findWord(text, "this", true));
+            
+            Console.Read();
         }
 
-        static string GetCountry(string name)
+        static bool findWord(string text, string word, bool casesensitive = false)
         {
-            if (name == "Ion")
-                return "Romania";
-            if (name == "John")
-                return "USA";
+
+            string[] words = text.Split(' ', ',', '.', '!', '?');
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                bool bFound = casesensitive ?
+                    words[i].Equals(word) :
+                    words[i].Equals(word, StringComparison.CurrentCultureIgnoreCase);
+
+                if (bFound)
+                    return true;
+            }
+            return false;
         }
+
+
     }
 }
+
