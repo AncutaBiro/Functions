@@ -1,4 +1,29 @@
-﻿using System;
+﻿/*
+ Vrei să participi la jocul de noroc 6 din 49 cu o singură variantă (simplă) și vrei să știi ce șanse ai să câștigi:
+
+la categoria I (6 numere)
+la categoria II (5 numere)
+la categoria III (4 numere)
+Scrie o aplicație consolă ce calculează șansele de câștig la loto. Generalizează soluția să funcționeze pentru orice combinație de bile totale, bile extrase și categorie.
+
+Aplicația primește ca date de intrare numărul total de bile, numărul de bile extrase și categoria și apoi tipărește șansele de câștig cu o precizie de 10 zecimale dacă se joacă cu o singură variantă.
+
+Exemplu:
+
+Pentru datele de intrare:
+
+40
+5
+II
+La consolă se va afișa:
+
+0.0002659542
+
+Sursa pt formule aplicate: https://en.wikipedia.org/wiki/Lottery_mathematics
+
+ */
+
+using System;
 
 namespace Functions6
 {
@@ -6,137 +31,74 @@ namespace Functions6
     {
         static void Main(string[] args)
         {
+            // total number of balls
+            int n = Convert.ToInt32(Console.ReadLine());
+            // number of balls selected
+            int k = Convert.ToInt32(Console.ReadLine());
+            // category 
+            string category = Console.ReadLine();
 
-            int t = 49;
-            int e = 6;
-
-/*
-           
-                for (int n = 4; n <= 6; ++n)
-                {
-                    Console.WriteLine((bc(6, n) * bc(49 - 6, 6 - n) / bc(49, 6)).ToString("0.00000000"));
-                }*/
-            
-       
-/*        Console.WriteLine(Probability(t, e));*/
-
-            decimal tOut = Combinations(49, 6);
-            decimal outcome = 1 / tOut;
-            decimal prob = (outcome / tOut) * 100;
-
-            Console.WriteLine(prob.ToString("0.00000000"));
-
-/*            Console.WriteLine(Benomiolcoeficient(t, e));*/
-
-        }
-
-        static double bc(double n, double k)
-        {
-            if (k == 0 || k == n)
-                return 1;
-            return bc(n - 1, k - 1) + bc(n - 1, k);
-        }
-
-
-
-        static ulong Factorial(int n)
-
-        {
-            ulong product = 1;
-
-            for (int i = 1; i <= n; i++)
+            switch (category)
             {
-                product *= (ulong) i;
+                case "I":
+                    DecimalProbability(n, k, k-0);
+                    break;
+                case "II":
+                    DecimalProbability(n, k, k-1);
+                    break;
+                case "III":
+                    DecimalProbability(n, k, k-2);
+                    break;
             }
 
-            return product;
-        }
-
-        static decimal Combinations (int n, int k)
-        {
-            ulong divident = Factorial(n);
-            Console.WriteLine(divident);
-
-            ulong divisor = Factorial(k) - Factorial(n - k);
-            Console.WriteLine(divisor);
-
-            decimal d = (decimal)divident / divisor;
-
-            Console.WriteLine (d);
-
-            return d;
-        }
-   
-
-
-
-        static decimal Probability(int t, int e) 
-        {
-
-            decimal p = 1;
-            int i = 5;
-            int j = 40;
-
-            /*while (i > 0)
+            static void DecimalProbability(int n, int k, int c)
             {
+                decimal x = 1 / (Combinations(k, c) * Combinations(n - k, k - c) / Combinations(n, k));
 
-                for (j = 40; j >= 40 - (i - 1); j--)
+                Console.WriteLine(x.ToString("0.0000000000"));
+
+            }
+
+            static ulong Factorial(int n)
+
+            {
+                ulong product = 1;
+
+                for (int i = 1; i <= n; i++)
                 {
-                    p *= (decimal)i / j;
-                    i--;
+                    product *= (ulong)i;
                 }
+
+                return product;
             }
 
-            Console.WriteLine(p.ToString("0.0000000000"));*/
+            static ulong FactorialNminusK(int n, int k)
+
+            {
+                ulong product = 1;
+
+                for (int i = n; i > n - k; i--)
+                {
+                    product *= (ulong)i;
+                }
+
+                return product;
+            }
 
 
-            /*     for (int k = 1; k <= i; k++)
-                 {
-                     p *= (j + 1 - i) / i;
-                 }
+            static decimal Combinations(int n, int k)
+            {
+                ulong divident = Factorial(k);
 
-                 Console.WriteLine(p);
+                ulong divisor = FactorialNminusK(n, k);
 
-                 return p;*/
+                decimal d = (decimal) divident / divisor;
 
-
-            Console.WriteLine(Factorial(i));
-            Console.WriteLine(Factorial(j));
-            Console.WriteLine(Factorial(j - i));
-
-
-            p = 1/
-               (Factorial(j) /
-                Factorial(i) * Factorial(j - i));
-
-            return p;
-
+                return d;
+            }
+    
         }
 
-
-        //bonomial coefficient
-        
-
-
-
-
-
-
-
-    /*static decimal Benomiolcoeficient(int t, int e)
-    {
-        decimal p = 1;
-
-        for (int i = 1; i <= t; i++)
-        {
-            p*= (t + 1 - e) / e;
-        }
-
-        Console.WriteLine(p);
-
-        return p; 
-
-}*/
+    }
 }
 
-}
