@@ -25,7 +25,7 @@ Sursa pt formule aplicate: https://en.wikipedia.org/wiki/Lottery_mathematics
 
 using System;
 
-namespace Functions6
+namespace Functions6._1
 {
     class Program
     {
@@ -41,20 +41,19 @@ namespace Functions6
             switch (category)
             {
                 case "I":
-                    DecimalProbability(n, k, k);
-                    Console.WriteLine(d);
+                    DecimalProbability(n, k, k-0);
                     break;
                 case "II":
-                    DecimalProbability(n, k, k);
+                    DecimalProbability(n, k, k-1);
                     break;
                 case "III":
-                    DecimalProbability(n, k, k);
+                    DecimalProbability(n, k, k-2);
                     break;
             }
 
             static decimal DecimalProbability(int n, int k, int c)
             {
-                decimal x = Combinations(k, c) * Combinations(n - k, k - c) / Combinations(n, k);
+                decimal x = (decimal) (Combinations(k, c) * Combinations(n - k, k - c) / Combinations(n, k));
 
                 Console.WriteLine(x.ToString("0.0000000000"));
 
@@ -62,44 +61,44 @@ namespace Functions6
 
             }
 
-            static ulong Factorial(int x)
+            static double Factorial(int x)
 
             {
-                ulong product = 1;
+                double product = 1;
 
                 for (int i = 1; i <= x; i++)
                 {
-                    product *= (ulong)i;
+                    product *= i;
                 }
 
                 return product;
             }
 
-            static ulong FactorialTotalMinusSelected (int x, int y)
+            static double FactorialTotalMinusSelected(int x, int y)
 
             {
-                ulong product = 1;
+                double product = 1;
 
                 for (int i = x; i > x - y; i--)
                 {
-                    product *= (ulong)i;
+                    product *= i;
                 }
 
                 return product;
             }
 
 
-            static decimal Combinations(int x, int y)
+            static double Combinations(int x, int y)
             {
-                ulong dividend = FactorialTotalMinusSelected (x, y);
+                double dividend = (double) FactorialTotalMinusSelected(x, y);
 
-                ulong divisor = Factorial(y);
+                double divisor = (double) Factorial(y);
 
-                decimal d = (decimal) dividend / divisor;
+                double d = (double) dividend / divisor;
 
                 return d;
             }
-    
+
         }
 
     }

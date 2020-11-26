@@ -17,7 +17,7 @@ namespace Functions6._1
             switch (category)
             {
                 case "I":
-                    DecimalProbability(n, k, k);
+                    DecimalProbability(n, k, k - 0);
                     break;
                 case "II":
                     DecimalProbability(n, k, k - 1);
@@ -27,13 +27,13 @@ namespace Functions6._1
                     break;
             }
         }
-            static double DecimalProbability(int n, int k, int c)
+            static void DecimalProbability(int n, int k, int c)
             {
 
             double x = bc(k, c) * bc(n - k, k - c) / bc(n, k);
-            Console.WriteLine(x.ToString("0.0000000000"));
 
-            return x;
+            Console.WriteLine(x);
+            Console.WriteLine(x.ToString("0.0000000000"));
 
             }
 
